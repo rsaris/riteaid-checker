@@ -4,10 +4,12 @@ import propTypes from 'prop-types';
 
 import {
   Button,
+  Linking,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import Clipboard from '@react-native-community/clipboard';
 
 const styles = StyleSheet.create({
   button: {
@@ -49,6 +51,11 @@ export default function StoreChecker({ store, onCheckPress }) {
     };
   }
 
+  function handleGoPress() {
+    Clipboard.setString(`${store.zip}`);
+    Linking.openURL('https://www.riteaid.com/pharmacy/covid-qualifier');
+  }
+
   return (
     <View style={rowStyles}>
       <Text style={styles.text}>
@@ -62,8 +69,8 @@ export default function StoreChecker({ store, onCheckPress }) {
 
       <Button
         style={styles.button}
-        title='Check store'
-        onPress={onCheckPress}
+        title={store.hasSlots ? 'Let\s Go!!!' : 'Check store'}
+        onPress={store.hasSlots ? handleGoPress : onCheckPress}
       />
     </View>
   );
