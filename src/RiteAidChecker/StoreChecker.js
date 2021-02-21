@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%'
   },
+  rowHasSlots: {
+    backgroundColor: '#AED86F',
+  },
+  rowNoSlots: {
+    backgroundColor: '#FE9A86',
+  },
   text: {
     flexShrink: 1,
     paddingLeft: 10,
@@ -35,8 +41,16 @@ function slotsText(hasSlots) {
 }
 
 export default function StoreChecker({ store, onCheckPress }) {
+  let rowStyles = styles.row;
+  if (store.hasSlots !== undefined) {
+    rowStyles = {
+      ...rowStyles,
+      ...(store.hasSlots ? styles.rowHasSlots : styles.rowNoSlots),
+    };
+  }
+
   return (
-    <View style={styles.row}>
+    <View style={rowStyles}>
       <Text style={styles.text}>
         {store.id}: {store.address}, {store.zip}
         {'\n'}
