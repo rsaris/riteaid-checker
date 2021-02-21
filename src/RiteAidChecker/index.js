@@ -1,21 +1,72 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
 import {
-  Alert,
-  Text,
+  Button,
   ScrollView,
+  View,
 } from 'react-native';
 
 import StoreChecker from './StoreChecker'
 
+import checkStore from './checkStore';
 import { storeMap } from './stores';
 
-export default function RightAidChecker() {
-  const [stores, setStores] = useState(storeMap);
+class RightAidChecker extends Component {
+  state = {
+    stores: { ...storeMap },
+  };
 
-  return (
-    <ScrollView style={{ height: '100%', width: '100%' }}>
-      {Object.values(stores).map(store => <StoreChecker key={store.id} store={store} />)}
-    </ScrollView>
-  );
+  handleUpdateStore = async (storeId) => {
+    this.updateStore(storeId, { error: undefined, hasSlots: undefined, loading: true });
+
+    try {
+      const hasSlots = await checkStore(storeId);
+      this.updateStore(storeId, { hasSlots, loading: false });
+    } catch(err) {
+      this.updateStore(storeId, { error: err.message, loading: false });
+    }
+  }
+
+  handleUpdateStores = async () => {
+    Object.values(this.state.stores).forEach(store => this.handleUpdateStore(store.id));
+  }
+
+  updateStore(storeId, updates) {
+    this.setState(state => ({
+      stores: {
+        ...state.stores,
+        [storeId]: {
+          ...(state.stores[storeId]),
+          ...updates,
+        },
+      }
+    }));
+  }
+
+  render() {
+    return (
+      <View style={{ flexDirection: 'column', height: '100%', width: '100%' }}>
+        <ScrollView style={{ flexGrow: 1, width: '100%' }}>
+          {
+            Object.values(this.state.stores).map(
+              store => (
+                <StoreChecker
+                  key={store.id}
+                  store={store}
+                  onCheckPress={() => { this.handleUpdateStore(store.id) }}
+                />
+              ),
+            )
+          }
+        </ScrollView>
+        <Button
+          style={{ flexBasis: 50 }}
+          title="Check all"
+          onPress={this.handleUpdateStores}
+        />
+      </View>
+    );
+  }
 }
+
+export default RightAidChecker;
