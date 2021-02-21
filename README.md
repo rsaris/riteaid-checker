@@ -23,7 +23,9 @@ This app will provide a way to quickly check if a Riteaid has vaccine appointmen
 
 ## Run application on device
 
-1. Follow instructions [here](https://reactnative.dev/docs/running-on-device)
+1. Get your phone working by follow instructions [here](https://reactnative.dev/docs/running-on-device)
+1. Determine your device ID by runing `adb devices`
+1. Using that device name, run `npx react-native run-android --device=<device-id>
 
 # TODO
 

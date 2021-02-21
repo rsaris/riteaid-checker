@@ -2,8 +2,6 @@ import React from 'react';
 
 import RightAidChecker from './src/RiteAidChecker';
 
-const App: () => React$Node = () => {
+export default function App() {
   return <RightAidChecker />;
 };
-
-export default App;
