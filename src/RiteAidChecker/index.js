@@ -27,8 +27,20 @@ class RightAidChecker extends Component {
     }
   }
 
-  handleUpdateStores = async () => {
-    Object.values(this.state.stores).forEach(store => this.handleUpdateStore(store.id));
+  handleUpdateStores = () => {
+    if (this.updateAllInterval) { return; }
+
+    let index = 0;
+    const storeIDs = Object.keys(this.state.stores);
+
+    this.updateAllInterval = setInterval(() => {
+      this.handleUpdateStore(storeIDs[index]);
+      index = index + 1;
+      if (index >= storeIDs.length) {
+        clearInterval(this.updateAllInterval);
+        this.updateAllInterval = undefined;
+      }
+    }, 250);
   }
 
   updateStore(storeId, updates) {
@@ -60,8 +72,9 @@ class RightAidChecker extends Component {
           }
         </ScrollView>
         <Button
+          disabled={!!this.updateAllInterval}
           style={{ flexBasis: 50 }}
-          title="Check all"
+          title="Check all stores"
           onPress={this.handleUpdateStores}
         />
       </View>

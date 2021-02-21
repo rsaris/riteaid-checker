@@ -62,7 +62,7 @@ export default function StoreChecker({ store, onCheckPress }) {
 
       <Button
         style={styles.button}
-        title='Check status'
+        title='Check store'
         onPress={onCheckPress}
       />
     </View>
