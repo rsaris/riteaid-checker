@@ -3,13 +3,29 @@ import React, { Component } from 'react';
 import {
   Button,
   ScrollView,
+  StyleSheet,
   View,
 } from 'react-native';
 
-import StoreChecker from './StoreChecker'
+import StoreChecker from './StoreChecker';
 
 import checkStore from './checkStore';
 import { storeMap } from './stores';
+
+const styles = StyleSheet.create({
+  button: {
+    flexBasis: 50,
+  },
+  container: {
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+  },
+  storeList: {
+    flexGrow: 1,
+    width: '100%',
+  },
+});
 
 class RightAidChecker extends Component {
   state = {
@@ -22,7 +38,7 @@ class RightAidChecker extends Component {
     try {
       const hasSlots = await checkStore(storeId);
       this.updateStore(storeId, { hasSlots, loading: false });
-    } catch(err) {
+    } catch (err) {
       this.updateStore(storeId, { error: err.message, loading: false });
     }
   }
@@ -51,21 +67,21 @@ class RightAidChecker extends Component {
           ...(state.stores[storeId]),
           ...updates,
         },
-      }
+      },
     }));
   }
 
   render() {
     return (
-      <View style={{ flexDirection: 'column', height: '100%', width: '100%' }}>
-        <ScrollView style={{ flexGrow: 1, width: '100%' }}>
+      <View style={styles.container}>
+        <ScrollView style={styles.storeList}>
           {
             Object.values(this.state.stores).map(
               store => (
                 <StoreChecker
                   key={store.id}
                   store={store}
-                  onCheckPress={() => { this.handleUpdateStore(store.id) }}
+                  onCheckPress={() => { this.handleUpdateStore(store.id); }}
                 />
               ),
             )
@@ -73,7 +89,7 @@ class RightAidChecker extends Component {
         </ScrollView>
         <Button
           disabled={!!this.updateAllInterval}
-          style={{ flexBasis: 50 }}
+          style={styles.button}
           title="Check all stores"
           onPress={this.handleUpdateStores}
         />

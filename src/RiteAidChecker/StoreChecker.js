@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 50,
-    width: '100%'
+    width: '100%',
   },
   rowHasSlots: {
     backgroundColor: '#AED86F',
@@ -30,16 +30,16 @@ const styles = StyleSheet.create({
   rowNoSlots: {
     backgroundColor: '#FE9A86',
   },
-  text: {
+  textContainer: {
     flexShrink: 1,
     paddingLeft: 10,
-  }
-})
+  },
+});
 
 function slotsText(hasSlots) {
   if (hasSlots === undefined) { return ''; }
 
-  return hasSlots ? "Let's do this!" : "Keep trying...";
+  return hasSlots ? "Let's do this!" : 'Keep trying...';
 }
 
 export default function StoreChecker({ store, onCheckPress }) {
@@ -58,18 +58,20 @@ export default function StoreChecker({ store, onCheckPress }) {
 
   return (
     <View style={rowStyles}>
-      <Text style={styles.text}>
-        {store.id}: {store.address}, {store.zip}
-        {'\n'}
-
-        {store.loading && <Text style={styles.text}>Loading...</Text>}
-        {store.error && <Text style={styles.text}>Error: {store.error}</Text>}
-        {slotsText(store.hasSlots)}
-      </Text>
+      <View style={styles.textContainer}>
+        <Text numberOfLines={1}>
+          {store.id}: {store.address}, {store.zip}
+        </Text>
+        <Text numberOfLines={1}>
+          {store.loading && <Text style={styles.text}>Loading...</Text>}
+          {store.error && <Text style={styles.text}>Error: {store.error}</Text>}
+          {slotsText(store.hasSlots)}
+        </Text>
+      </View>
 
       <Button
         style={styles.button}
-        title={store.hasSlots ? 'Let\s Go!!!' : 'Check store'}
+        title={store.hasSlots ? 'Let\'s Go!!!' : 'Check store'}
         onPress={store.hasSlots ? handleGoPress : onCheckPress}
       />
     </View>
