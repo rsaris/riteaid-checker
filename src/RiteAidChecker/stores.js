@@ -1,5 +1,6 @@
 // http://www.city-data.com/locations/RiteAid/Delaware-County-PA-2.html
-const storeList = [
+/* eslint-disable no-unused-vars */
+const delcoStoreList = [
   {
     id: 11112,
     address: '3120 CHICHESTER AVE',
@@ -111,6 +112,88 @@ const storeList = [
     zip: 19050,
   },
 ];
+
+const phillyStoreList = [
+  {
+    id: 3325,
+    address: '1443 South 7th Street',
+    zip: 19147,
+  },
+  {
+    id: 3783,
+    address: '810 S Broad Street',
+    zip: 19146,
+  },
+  {
+    id: 242,
+    address: '730-32 Market Street',
+    zip: 19106,
+  },
+  {
+    id: 1365,
+    address: '215 South Broad Street',
+    zip: 19107,
+  },
+  {
+    id: 3770,
+    address: '1000-1008 Market Street',
+    zip: 19107,
+  },
+  {
+    id: 174,
+    address: '1628-36 Chestnut Street',
+    zip: 19103,
+  },
+  {
+    id: 6777,
+    address: '1900 Arch Street',
+    zip: 19103,
+  },
+  {
+    id: 3959,
+    address: '2301 Walnut Street',
+    zip: 19103,
+  },
+  {
+    id: 2698,
+    address: '339 Spring Garden Street',
+    zip: 19123,
+  },
+  {
+    id: 3876,
+    address: '1500 W. Moyamensing Avenue',
+    zip: 19145,
+  },
+  {
+    id: 3227,
+    address: '3000-02 Reed Street',
+    zip: 19146,
+  },
+  {
+    id: 1766,
+    address: '10 Snyder Avenue',
+    zip: 19148,
+  },
+  {
+    id: 1936,
+    address: '2017-2023 South Broad St',
+    zip: 19148,
+  },
+  {
+    id: 3825,
+    address: '801 South 9th Street',
+    zip: 19147,
+  },
+  {
+    id: 3801,
+    address: '704-20 East Passyunk Avenue',
+    zip: 19147,
+  },
+];
+
+/* eslint-enable no-unused-vars */
+
+const storeList = phillyStoreList;
 
 const storeMap = storeList.reduce(
   (acc, val) => {
